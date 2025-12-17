@@ -1,0 +1,30 @@
+.edit-profile {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.edit-profile__heading {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.form__link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin: 20px auto;
+}
+
+@media screen and (min-width: 1400px) {
+
+    .edit-profile {
+        max-width: 600px;
+    }
+
+    .form__label,
+    .form__input,
+    .btn {
+        font-size: 18px;
+    }
+}

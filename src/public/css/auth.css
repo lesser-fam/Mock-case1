@@ -1,0 +1,32 @@
+.register-form,
+.login-form {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.register-form__heading,
+.login-form__heading {
+    text-align: center;
+    margin: 30px auto;
+}
+
+.form__link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin: 15px auto 5px;
+}
+
+@media screen and (min-width: 1400px) {
+    .register-form,
+    .login-form {
+        max-width: 600px;
+    }
+
+    .form__label,
+    .form__input,
+    .btn {
+        font-size: 18px;
+    }
+}
