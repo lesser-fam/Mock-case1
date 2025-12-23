@@ -4,16 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Category;
+use App\Models\Condition;
+use App\Models\User;
+use App\Models\Purchase;
+use App\Models\Favorite;
+use App\Models\Comment;
 
 class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'name', 'brand', 'price', 'detail', 'category_id', 'condition_id', 'seller_id', 'buyer_id','image' ];
+    protected $fillable = [ 'name', 'brand', 'price', 'detail', 'condition_id', 'seller_id','image' ];
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function condition()
@@ -24,11 +30,6 @@ class Item extends Model
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
-    }
-
-    public function buyer()
-    {
-        return $this->belongsTo(User::class, 'buyer_id');
     }
 
     public function purchase()

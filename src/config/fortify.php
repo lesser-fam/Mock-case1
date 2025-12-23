@@ -77,8 +77,8 @@ return [
     'home' => RouteServiceProvider::HOME,
 
     'redirects' => [
-    'login'    => '/',
-    'register' => '/mypage/profile',
+    'login'    => '/?tab=mylist',
+    'register' => '/mypage/profile?from=register',
     'logout'   => '/login',
 ],
 

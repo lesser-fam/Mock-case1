@@ -11,7 +11,7 @@ class Profile extends Model
 
     protected $fillable = [ 'user_id', 'user_name', 'post_num', 'address', 'building', 'image' ];
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class);
     }

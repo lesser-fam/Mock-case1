@@ -1,0 +1,160 @@
+.content {
+    max-width:1540px;
+    margin: 0 auto;
+}
+
+.item-top__head {
+    border-bottom: 3px solid gray;
+    padding: 30px 0 5px;
+    width: 100%;
+}
+
+.item-top__head-inner {
+    display: flex;
+    gap: 50px;
+    padding-left: 100px;
+}
+
+.item-top__head a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+}
+
+.item-top__head a.active {
+    font-weight: bold;
+    color: #ca0f0f;
+}
+
+.item-top__main {
+    display: grid;
+    gap: 50px;
+    padding: 50px;
+    
+}
+
+/* ~850px */
+.item-top__main {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 851~1399px */
+@media screen and (min-width: 851px) {
+    .item-top__main {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* 1400~1540px */
+@media screen and (min-width: 1400px) {
+    .item-top__main {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.item-group {
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.item-group__image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: whitesmoke;
+    overflow: hidden;
+    position: relative;
+}
+
+.item-group__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.item-group__name {
+    margin: 2px 0 0;
+    font-size: 20px;
+    text-align: left;
+}
+
+.item-group__sold {
+    position: absolute;
+    top: 12px;
+    left: -38px;
+    width: 140px;
+    padding: 6px 0;
+    background-color: #ca0f0f;
+    letter-spacing: 0.1em;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    transform: rotate(-45deg);
+    z-index: 10;
+}
+
+
+
+
+
+
+
+
+
+
+.item-detail {
+    display: flex;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.item-detail__left {
+    width: 40%;
+}
+
+.item-detail__left img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.item-detail__right {
+    width: 60%;
+}
+
+.item-info {
+    list-style: none;
+}
+
+.item-info li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.item-info__title {
+    width: 80px;
+    font-weight: bold;
+}
+
+.item-categories {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.item-category {
+    background-color: #ccc;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+}
+
+.item-info__value {
+    font-size: 14px;
+}

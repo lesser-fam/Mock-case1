@@ -18,7 +18,11 @@
     margin: 15px auto 5px;
 }
 
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 851px) {
+
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
     .register-form,
     .login-form {
         max-width: 600px;

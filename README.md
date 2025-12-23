@@ -33,9 +33,9 @@ php artisan db:seed
 
 
 ##使用技術
--PHP
--Laravel
--MySQL
+-PHP8.4.13
+-Laravel8.83.29
+-MySQL8.0.26
 
 ##ER図
 ![ER図](/erd.png)

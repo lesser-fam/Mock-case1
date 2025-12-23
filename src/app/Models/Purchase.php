@@ -11,7 +11,7 @@ class Purchase extends Model
 
     protected $fillable = [ 'item_id', 'buyer_id', 'post_num', 'address', 'building' ];
 
-    public function item()
+    public function items()
     {
         return $this->belongsTo(Item::class);
     }

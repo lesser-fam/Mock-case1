@@ -6,9 +6,9 @@
 
 @section('content')
     <div class="login-form">
-        <h2 class="login-form__heading">ログイン</h2>
+        <h1 class="login-form__heading">ログイン</h1>
             
-                <form class="login-form__form" action="/login" method="POST">
+                <form class="login-form__form" action="{{ route('login') }}" method="POST" novalidate>
                     @csrf
                     <div class="form__group">
                         <label class="form__label" for="email">メールアドレス</label>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="">
                         <input class="btn login-btn" type="submit" value="ログインする">
-                        <a class="form__link" href="/register">会員登録はこちら</a>
+                        <a class="form__link" href="{{ route('register') }}">会員登録はこちら</a>
                     </div>
                 </form>
             

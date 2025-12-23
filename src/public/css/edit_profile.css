@@ -9,14 +9,11 @@
     margin: 50px auto;
 }
 
-.form__link {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    margin: 20px auto;
+@media screen and (min-width: 851px) {
+    
 }
 
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
 
     .edit-profile {
         max-width: 600px;

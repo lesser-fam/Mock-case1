@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Laravel\Fortify\Http\Request\LoginRequest as FortifyLoginRequest;
+use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
 
 class LoginRequest extends FortifyLoginRequest
 {
@@ -24,7 +24,18 @@ class LoginRequest extends FortifyLoginRequest
     public function rules()
     {
         return [
+            'email' => 'required|email',
+            'password' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスはメール形式で入力してください',
             
+            'password.required' => 'パスワードを入力してください',
         ];
     }
 }
