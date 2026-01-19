@@ -17,6 +17,15 @@ class Item extends Model
 
     protected $fillable = [ 'name', 'brand', 'price', 'detail', 'condition_id', 'seller_id','image' ];
 
+    public function getImageUrlAttribute()
+    {
+        if (str_starts_with($this->image, 'http')) {
+            return $this->image;
+        }
+
+        return asset('storage/'. $this->image);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);

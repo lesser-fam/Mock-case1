@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\PurchaseController;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +18,36 @@ use App\Http\Controllers\PurchaseController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
-Route::middleware('auth')->group(function () {
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function ($id,  $hash) {
+    $user = User::findOrFail($id);
+
+    if (! hash_equals($hash, sha1($user->getEmailForVerification()))) {
+        abort(403);
+    }
+
+    if (! $user->hasVerifiedEmail()) {
+        $user->markEmailAsVerified();
+    }
+
+    Auth::login($user);
+    
+    return redirect()->route('mypage.profile.edit');
+})->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+
+Route::middleware('auth', 'verified')->group(function () {
+
+    Route::prefix('item')->group(function () {
+        Route::post('/{item_id}/favorite', [ItemController::class, 'favorite'])->name('items.favorite');
+        Route::post('/{item_id}/comment', [ItemController::class, 'comment'])->name('items.comment');
+    });
 
     Route::prefix('sell')->group(function () {
         Route::get('/', [ItemController::class, 'create'])->name('items.create');
@@ -33,7 +62,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('mypage')->group(function () {
-        Route::get('/', [MypageController::class, 'mypage'])->name('mypage.index');
+        Route::get('/', [MypageController::class, 'index'])->name('mypage.index');
         Route::get('/profile', [MypageController::class, 'editprofile'])->name('mypage.profile.edit');
         Route::put('/profile', [MypageController::class, 'updateprofile'])->name('mypage.profile.update');
     });

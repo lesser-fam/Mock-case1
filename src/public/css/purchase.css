@@ -1,0 +1,138 @@
+.purchase-form {
+    display: flex;
+    gap: var(--space-xl);
+    align-items: stretch;
+    margin: var(--space-xl);
+}
+
+.purchase-left {
+    flex: 7;
+}
+
+.purchase-right {
+    flex: 3;
+    padding: var(--space-m);
+}
+
+@media screen and (max-width:850px) {
+    .purchase-form {
+        flex-direction: column;
+        gap: var(--space-l);
+        margin: var(--space-m);
+    }
+
+    .purchase-left,
+    .purchase-right {
+        width: 100%;
+    }
+
+    .purchase-right {
+        padding: var(--space-xl);
+    
+    }
+}
+
+.purchase-section {
+    padding: var(--space-m) 0 var(--space-l);
+    border-bottom: 1px solid #666;
+}
+
+.purchase-section__title {
+    display: inline-block;
+    margin: 0 0 var(--space-m);
+}
+
+.purchase-section__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase-section__body {
+    position: relative;
+    margin-left: var(--space-s);
+}
+
+.purchase-item__inner {
+    display: flex;
+    gap: var(--space-s);
+}
+
+.purchase-item__image-wrap {
+    width: 150px;
+    aspect-ratio: 1/1;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.purchase-item__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.purchase-item__detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.purchase-item__name {
+    font-size: var(--font-xl);
+    font-weight: bold;
+    margin: 0 0 var(--space-xs);
+}
+
+.purchase-item__price {
+    font-size: var(--font-xl);
+}
+
+#paymentMethodSelect {
+    width: 250px;
+    font-size: var(--font-s);
+    padding: var(--space-xs);
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#paymentMethodSelect option {
+    cursor: pointer;
+}
+
+.purchase-summary {
+    width: 100%;
+    margin-bottom: var(--space-m);
+    border: 1px solid #666;
+    border-radius: 5px;
+    border-collapse: collapse;
+}
+
+.purchase-summary th,
+.purchase-summary td {
+    padding: var(--space-s);
+    text-align: center;
+}
+
+.purchase-summary tr + tr th,
+.purchase-summary tr + tr td {
+    border-top: 1px solid #666;
+}
+
+.form__error {
+    color: #ffffff;
+    margin-top: var(--space-xs);
+    background-color: #f05550;
+}
+
+.btn {
+    display: block;
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+    margin-top: var(--space-xl);
+    padding: var(--space-s) 0;
+    background-color: #f05550;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}

@@ -28,7 +28,8 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
             $createdUser = User::create([
                 'email' => $user['email'],
-                'password' => Hash::make('Password'),
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
             ]);
             
             Profile::create([

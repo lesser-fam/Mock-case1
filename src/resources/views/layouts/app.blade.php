@@ -17,50 +17,46 @@
             </a>
 
         @if (!request()->routeIs('register', 'login'))
-
-            <div class="header__search">
-                <input type="text" placeholder="なにをお探しですか？">
-            </div>
+            <form class="header__search" action="{{ url('/') }}" method="GET">
+                <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか？">
+                <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
+            </form>
 
             <ul class="header__nav">
-                <li class="header__nav--list-first">
+                <li>
                 @auth
-                    <form class="header__nav--auth" method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                        <button type="submit">ログアウト</button>
+                        <button class="header__nav-item" type="submit">ログアウト</button>
                     </form>
                 @endauth
                 @guest
-                    <a href="{{ route('login') }}">ログイン</a>
+                    <a class="header__nav-item" href="{{ route('login') }}">ログイン</a>
                 @endguest
                 </li>
 
                 <li>
                 @auth
-                    <a class="header__nav--mypage" href="{{ route('mypage.index') }}">マイページ</a>
+                    <a class="header__nav-item header__nav-item--link" href="{{ route('mypage.index') }}">マイページ</a>
                 @endauth
                 @guest
-                    <a class="header__nav--mypage" href="/login">マイページ</a>
+                    <a class="header__nav-item header__nav-item--link" href="{{ route('login') }}">マイページ</a>
                 @endguest
                 </li>
 
                 <li>
                 @auth
-                <div class="header__nav--sell">
-                    <a href="{{ route('items.create') }}">出品</a>
-                </div>
+                    <a class="header__nav-item header__nav-item--sell" href="{{ route('items.create') }}">出品</a>
                 @endauth
                 @guest
-                <div class="header__nav--sell">
-                    <a href="/login">出品</a>
-                </div>
+                    <a class="header__nav-item header__nav-item--sell" href="{{ route('login') }}">出品</a>
                 @endguest
                 </li>
             </ul>
         @endif
     </header>
-    <div class="content">
-            @yield('content')
-    </div>
+    
+    @yield('content')
+    
 </body>
 </html>

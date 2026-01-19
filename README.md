@@ -43,3 +43,8 @@ php artisan db:seed
 ##URL
 -開発環境：http:/localhost/
 -phpMyAdmin：http:/localhost:8080/
+
+##Stripe用テストカード
+・カード番号：4242 4242 4242 4242
+・有効期限：未来日
+・CVC：任意
