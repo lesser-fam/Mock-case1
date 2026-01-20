@@ -21,7 +21,9 @@ class AuthRegisterTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        $response->assertSessionHasErrors(['user_name']);
+        $response->assertSessionHasErrors([
+            'user_name' => 'お名前を入力してください'
+        ]);
     }
 
     /** @test */
@@ -33,7 +35,9 @@ class AuthRegisterTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        $response->assertSessionHasErrors(['email']);
+        $response->assertSessionHasErrors([
+            'email' => 'メールアドレスを入力してください'
+        ]);
     }
 
     /** @test */
@@ -44,7 +48,9 @@ class AuthRegisterTest extends TestCase
             'email' => 'test@example.com',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードを入力してください'
+        ]);
     }
 
     /** @test */
@@ -57,7 +63,9 @@ class AuthRegisterTest extends TestCase
             'password_confirmation' => '1234567',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードは8文字以上で入力してください'
+        ]);
     }
 
     /** @test */
@@ -70,7 +78,9 @@ class AuthRegisterTest extends TestCase
             'password_confirmation' => 'wrongpass',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードと一致しません'
+        ]);
     }
 
     /** @test */

@@ -18,7 +18,9 @@ class AuthLoginTest extends TestCase
             'password' => 'password123',
         ]);
 
-        $response->assertSessionHasErrors(['email']);
+        $response->assertSessionHasErrors([
+            'email' => 'メールアドレスを入力してください'
+            ]);
     }
 
     /** @test */
@@ -28,7 +30,9 @@ class AuthLoginTest extends TestCase
             'email' => 'test@example.com',
         ]);
 
-        $response->assertSessionHasErrors(['password']);
+        $response->assertSessionHasErrors([
+            'password' => 'パスワードを入力してください'
+        ]);
     }
 
     /** @test */
@@ -39,7 +43,9 @@ class AuthLoginTest extends TestCase
             'password' => 'wrongpassword',
         ]);
 
-        $response->assertSessionHasErrors([ 'email' ]);
+        $response->assertSessionHasErrors([
+            'email' => 'ログイン情報が登録されていません'
+        ]);
     }
 
     /** @test */
@@ -57,5 +63,22 @@ class AuthLoginTest extends TestCase
 
         $response->assertRedirect('/?tab=mylist');
         $this->assertAuthenticatedAs($user);
+    }
+
+    /** @test */
+    public function 未認証ユーザーはログインできず認証誘導画面に遷移する()
+    {
+        $user = User::factory()->unverified()->create([
+            'password' => bcrypt('password123'),
+        ]);
+
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => 'password123',
+        ]);
+
+        $this->assertGuest();
+
+        $response->assertRedirect(route('verification.notice'));
     }
 }

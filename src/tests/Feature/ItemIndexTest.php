@@ -55,23 +55,6 @@ class ItemIndexTest extends TestCase
     }
 
     /** @test */
-    // public function 購入されていない商品には「Sold」が表示されない()
-    // {
-    //     $seller = User::factory()->create();
-        
-    //     $item = Item::factory()->create([
-    //         'seller_id' => $seller->id,
-    //         'name' => '未購入商品',
-    //     ]);
-
-    //     $response = $this->get('/');
-
-    //     $response->assertStatus(200);
-    //     $response->assertSee('未購入商品');
-    //     $response->assertDontSee('SOLD');
-    // }
-
-    /** @test */
     public function 自分が出品した商品は表示されない()
     {
         $user = User::factory()->create();

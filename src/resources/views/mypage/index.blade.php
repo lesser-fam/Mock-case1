@@ -8,9 +8,9 @@
     <div class="mypage-profile container--form">
         <div class="mypage-user">
             <div class="mypage-user__image-wrap">
-                <img class="mypage-user__image" src="{{ $profile->image ? asset('storage/' . $profile->image) : asset('/images/default.png') }}" alt="ユーザー画像">
+                <img class="mypage-user__image" src="{{ optional($profile)->image ? asset('storage/' . $profile->image) : asset('/images/default.png') }}" alt="ユーザー画像">
             </div>
-            <p class="mypage-user__name">{{ $profile->user_name ?? '未設定' }}</p>
+            <p class="mypage-user__name">{{ optional($profile)->user_name ?? '未設定' }}</p>
         </div>
 
         <div>
