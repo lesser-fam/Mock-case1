@@ -16,7 +16,6 @@ use Laravel\Fortify\Contracts\RegisterResponse;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 
-
 class FortifyServiceProvider extends ServiceProvider
 {
     /**

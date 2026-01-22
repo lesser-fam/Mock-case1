@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>coachtechフリマ</title>
-    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bases/sanitize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bases/common.css') }}">
     @yield('css')
 </head>
 
 <body>
     <header class="header">
-        
-            <a href="{{ route('items.index') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
-            </a>
+        <a href="{{ route('items.index') }}">
+            <img class="header__logo" src="{{ asset('images/logo.png') }}" alt="ロゴ">
+        </a>
 
         @if (!request()->routeIs('register', 'login'))
             <form class="header__search" action="{{ url('/') }}" method="GET">
-                <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="なにをお探しですか？">
+                <input type="text" name="keyword" aria-label="商品検索" value="{{ request('keyword') }}" placeholder="なにをお探しですか？">
                 <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
             </form>
 

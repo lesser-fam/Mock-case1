@@ -29,9 +29,9 @@ class PurchaseController extends Controller
         ];
 
         $address = session('purchase_address', [
-            'post_num' => $profile->post_num,
-            'address' => $profile->address,
-            'building' => $profile->building,
+            'post_num' => optional($profile)->post_num,
+            'address' => optional($profile)->address,
+            'building' => optional($profile)->building,
         ]);
 
         return view('purchases.show', compact(

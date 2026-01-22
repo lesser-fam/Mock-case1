@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profiles/profile.css') }}">
 @endsection
 
 @section('content')
@@ -13,16 +14,16 @@
             @csrf
             @method('PUT')
             
-            <div class="form__group profile__image-group">
-                <div class="profile__image-wrap">
-                    <img class="profile__image" src="{{ $profile && $profile->image ? asset('storage/' . $profile->image) : asset('/images/default.png') }}" alt="ユーザー画像">
+            <div class="profile-form__image-group">
+                <div class="profile-form__image">
+                    <img src="{{ $profile && $profile->image ? asset('storage/' . $profile->image) : asset('/images/default.png') }}" alt="ユーザー画像">
                 </div>
                 
-                <label class="profile__image-btn" for="profile_image">
+                <label class="profile-form__image-btn" for="profile_image">
                     画像を選択する
                 </label>
 
-                <input id="profile_image" class="profile__image-input" type="file" name="image" accept="image/*">
+                <input id="profile_image" class="profile-form__image-input" type="file" name="image" accept="image/*">
             </div>
 
             <div class="form__group">
@@ -65,14 +66,14 @@
                 </p>
             </div>
                     
-            <input class="btn" type="submit" value="更新する">
+            <input class="btn btn--primary" type="submit" value="更新する">
         </form>
     </div>
 
 <script>
     document.getElementById('profile_image').addEventListener('change', function () {
         if (this.files && this.files[0]) {
-            const img = document.querySelector('.profile__image');
+            const img = document.querySelector('.profile-form__image img');
             img.src = URL.createObjectURL(this.files[0]);
         }
     });

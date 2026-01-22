@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Profile;
 use App\Models\Item;
 
 class PurchaseAddressTest extends TestCase
@@ -16,6 +17,11 @@ class PurchaseAddressTest extends TestCase
     public function 住所変更画面で登録した住所が購入画面に反映される()
     {
         $user = User::factory()->create();
+
+        Profile::factory()->create([
+            'user_id' => $user->id,
+        ]);
+        
         $item = Item::factory()->create();
 
         $this->actingAs($user);
@@ -42,7 +48,7 @@ class PurchaseAddressTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->post(route('purchase.address.update', $item->id), [
+        $this->put(route('purchase.address.update', $item->id), [
             'post_num' => '999-8888',
             'address' => '大阪府大阪市',
             'building' => '購入用住所',

@@ -1,21 +1,23 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profiles/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profiles/mypage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/items/item_card.css') }}">
 @endsection
 
 @section('content')
-    <div class="mypage-profile container--form">
-        <div class="mypage-user">
-            <div class="mypage-user__image-wrap">
-                <img class="mypage-user__image" src="{{ optional($profile)->image ? asset('storage/' . $profile->image) : asset('/images/default.png') }}" alt="ユーザー画像">
+    <div class="container--profile">
+        <div class="profile-user">
+            <div class="profile-user__image">
+                <img src="{{ optional($profile)->image ? asset('storage/' . $profile->image) : asset('/images/default.png') }}" alt="ユーザー画像">
             </div>
-            <p class="mypage-user__name">{{ optional($profile)->user_name ?? '未設定' }}</p>
+            <p class="profile-user__name">
+                {{ optional($profile)->user_name ?? '未設定' }}
+            </p>
         </div>
 
-        <div>
-            <a class="mypage-link" href="{{ route('mypage.profile.edit') }}">プロフィールを編集</a>
-        </div>
+        <a class="profile-action__edit-link" href="{{ route('mypage.profile.edit') }}">プロフィールを編集</a>
     </div>
 
     <div class="mypage-head container--narrow">
@@ -32,16 +34,16 @@
     
     <div class="mypage-main container">
         @foreach ($items as $item)
-            <a class="item-group" href="{{ route('items.show', $item->id) }}">
-                <div class="item-group__image-wrap">
-                    <img class="item-group__image" src="{{ $item->image_url }}" alt="{{ $item->name }}">
+            <a class="item-card" href="{{ route('items.show', $item->id) }}">
+                <div class="item-card__image">
+                    <img src="{{ $item->image_url }}" alt="{{ $item->name }}">
 
                     @if ($item->purchase && $item->purchase->status === 'paid')
-                        <span class= "item-group__sold">SOLD</span>
+                        <span class="badge--sold">SOLD</span>
                     @endif
                 </div>
 
-                <p class="item-group__name">{{ $item->name }}</p>
+                <p class="item-card__name">{{ $item->name }}</p>
             </a>
         @endforeach
     </div>

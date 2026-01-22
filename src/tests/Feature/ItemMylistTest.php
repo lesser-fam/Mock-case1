@@ -10,7 +10,7 @@ use App\Models\Item;
 use App\Models\Favorite;
 use App\Models\Purchase;
 
-class MylistTest extends TestCase
+class ItemMylistTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,8 +19,13 @@ class MylistTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $likedItem = Item::factory()->create([ 'name' => 'いいね商品' ]);
-        $notLikedItem = Item::factory()->create([ 'name' => 'いいねしていない商品' ]);
+        $likedItem = Item::factory()->create([
+            'name' => 'いいね商品'
+        ]);
+
+        $notLikedItem = Item::factory()->create([
+            'name' => 'いいねしていない商品'
+        ]);
 
         Favorite::factory()->create([
             'user_id' => $user->id,
@@ -28,6 +33,7 @@ class MylistTest extends TestCase
         ]);
         
         $this->actingAs($user);
+
         $response = $this->get('/?tab=mylist');
 
         $response->assertStatus(200);
@@ -40,15 +46,26 @@ class MylistTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $item = Item::factory()->create([ 'name' => '購入済み商品' ]);
+        $soldItem = Item::factory()->create([
+            'name' => '購入済み商品'
+        ]);
+
+        $normalItem = Item::factory()->create([
+            'name' => '未購入商品'
+        ]);
 
         Favorite::factory()->create([
             'user_id' => $user->id,
-            'item_id' => $item->id,
+            'item_id' => $soldItem->id,
+        ]);
+
+        Favorite::factory()->create([
+            'user_id' => $user->id,
+            'item_id' => $normalItem->id,
         ]);
 
         Purchase::factory()->create([
-            'item_id' => $item->id,
+            'item_id' => $soldItem->id,
             'buyer_id' => $user->id,
             'status' => 'paid',
         ]);
@@ -56,15 +73,17 @@ class MylistTest extends TestCase
         $this->actingAs($user);
         $response = $this->get('/?tab=mylist');
 
-        $response->assertStatus(200);
         $response->assertSee('購入済み商品');
         $response->assertSee('SOLD');
+        $response->assertSee('未購入商品');
     }
 
     /** @test */
     public function 未認証の場合は何も表示されない()
     {
-        Item::factory()->create([ 'name' => '表示されてはいけない商品' ]);
+        Item::factory()->create([
+            'name' => '表示されてはいけない商品'
+        ]);
 
         $response = $this->get('/?tab=mylist');
 

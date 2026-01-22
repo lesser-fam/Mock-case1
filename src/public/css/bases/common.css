@@ -1,3 +1,4 @@
+/* ===== 共通 =====*/
 :root {
     --font-xxl: 52px;
     --font-xl: 32px;
@@ -45,7 +46,7 @@ html,body {
     background-color: black;
 }
 
-.header img {
+.header__logo {
     height: 40px;
 }
 
@@ -96,9 +97,9 @@ html,body {
 
 .container--form {
     max-width: 700px;
-    margin: 0 auto;
+    margin: 0 auto var(--space-xxl);
+    padding-inline: var(--space-s);
 }
-
 
 /*~850px */
 @media screen and (max-width: 850px) {

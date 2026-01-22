@@ -7,7 +7,6 @@ use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +20,7 @@ use App\Models\User;
 
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
+
 
 Route::get('/email/verify', function () {
     return view('auth.verify');
@@ -38,9 +38,32 @@ Route::get('/email/verify/{id}/{hash}', function ($id,  $hash) {
     }
 
     Auth::login($user);
+
+    session()->forget('verify_user_id');
     
+    session(['first_profile' => true]);
+
     return redirect()->route('mypage.profile.edit');
 })->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+
+Route::post('email/resend', function () {
+    $userId = session('verify_user_id');
+
+    if (! $userId) {
+        abort(403);
+    }
+
+    $user = User::findOrFail($userId);
+
+    if ($user->hasVerifiedEmail()) {
+        return redirect()->route('login');
+    }
+
+    $user->sendEmailVerificationNotification();
+
+    return back()->with('resent', true);
+})->name('verification.resend');
+
 
 Route::middleware('auth', 'verified')->group(function () {
 

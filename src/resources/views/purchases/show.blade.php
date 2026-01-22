@@ -1,35 +1,35 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/purchase.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/purchases/purchase.css') }}">
 @endsection
 
 @section('content')
 <div class="purchase container--narrow">
-
     <form class="purchase-form" action="{{ route('purchase.store', $item->id) }}" method="POST">
         @csrf
-        <div class="purchase-left">
+        <div class="purchase-detail">
             <section class="purchase-section purchase-item">
                 <div class="purchase-item__inner">
                     <div class="purchase-item__image-wrap">
                         <img class="purchase-item__image" src="{{ $item->image_url }}" alt="商品画像">
                     </div>
 
-                    <div class="purchase-item-detail">
+                    <div class="purchase-item__detail">
                         <p class="purchase-item__name">{{ $item->name }}</p>
                         <p class="purchase-item__price">¥{{ number_format($item->price) }}</p>
                     </div>
                 </div>
             </section>
 
-            <section class="purchase-section purchase-pay">
+            <section class="purchase-section purchase-section--pay">
                 <label for="paymentMethodSelect" class="purchase-section__title">
                     支払い方法
                 </label>
 
                 <div class="purchase-section__body">
-                    <select name="payment_method" id="paymentMethodSelect">
+                    <select name="payment_method" id="paymentMethodSelect" class="purchase-pay__select">
                         <option value="">選択してください</option>
                         @foreach ($paymentMethods as $key => $label)
                             <option value="{{ $key }}" {{ old('payment_method') == $key ? 'selected' : '' }}>
@@ -44,7 +44,7 @@
                 </div>
             </section>
 
-            <section class="purchase-section purchase-address">
+            <section class="purchase-section purchase-section--address">
                 <div class="purchase-section__header">
                     <p class="purchase-section__title">配送先</p>
                     <a href="{{ route('purchase.address.edit', $item->id) }}" class="purchase-address__edit">
@@ -71,7 +71,7 @@
             </section>
         </div>
 
-        <div class="purchase-right">
+        <div class="purchase-subtotal">
             <table class="purchase-summary">
                 <tr>
                     <th>商品代金</th>
@@ -83,7 +83,7 @@
                 </tr>
             </table>
 
-            <button class="btn btn-purchase">購入する</button>
+            <button class="btn btn--primary">購入する</button>
         </div>
     </form>
 </div>

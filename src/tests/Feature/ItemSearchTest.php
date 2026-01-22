@@ -38,11 +38,20 @@ class ItemSearchTest extends TestCase
 
         $user->favorites()->create(['item_id' => $item1->id]);
 
-        $response = $this->get('/?tab=mylist&keyword=シャツ');
+        $response = $this->get('/?keyword=シャツ');
 
         $response->assertStatus(200);
         $response->assertSee('赤いシャツ');
-        $response->assertDontSee('青いシャツ');
-        $response->assertSee('value="シャツ"', false);
+        $response->assertSee('青いシャツ');
+
+        $response->assertSee('?tab=mylist&amp;keyword=シャツ', false);
+
+        $mylistResponse = $this->get('/?tab=mylist&keyword=シャツ');
+
+        $mylistResponse->assertStatus(200);
+        $mylistResponse->assertSee('赤いシャツ');
+        $mylistResponse->assertDontSee('青いシャツ');
+
+        $mylistResponse->assertSee('value="シャツ"', false);
     }
 }

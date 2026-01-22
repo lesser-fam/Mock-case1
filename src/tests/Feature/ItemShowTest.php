@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Profile;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Condition;
@@ -21,6 +22,12 @@ class ItemShowTest extends TestCase
     public function 商品詳細情報が正しく表示される()
     {
         $user = User::factory()->create();
+
+        Profile::factory()->create([
+            'user_id' => $user->id,
+            'user_name' => 'テストユーザー',
+        ]);
+
         $condition = Condition::factory()->create(['name' => '新品']);
 
         $item = Item::factory()
@@ -31,14 +38,20 @@ class ItemShowTest extends TestCase
                 'brand' => 'テストブランド',
                 'price' => 5000,
                 'detail' => '商品説明テスト',
+                'image' => 'test.jpeg'
             ]);
 
-            $categories = Category::factory()->count(2)->create();
-            $item->categories()->attach($categories);
+            $category = Category::factory()->create(['name' => '家電']);
+            $item->categories()->attach($category);
 
             Favorite::factory()->create([
                 'item_id' => $item->id,
                 'user_id' => $user->id,
+            ]);
+
+            Favorite::factory()->create([
+                'item_id' => $item->id,
+                'user_id' => User::factory()->create()->id,
             ]);
 
             Comment::factory()->create([
@@ -50,15 +63,22 @@ class ItemShowTest extends TestCase
         $response = $this->get(route('items.show', $item->id));
 
         $response->assertStatus(200);
+        $response->assertSee($item->image_url);
+        $response->assertSee('alt="' . $item->name . '"', false);
         $response->assertSee('テスト商品');
         $response->assertSee('テストブランド');
         $response->assertSee('¥5,000');
+        $response->assertSee('(税込)');
         $response->assertSee('商品説明テスト');
+        $response->assertSee('家電');
         $response->assertSee('新品');
-        $response->assertSee('1');
-        $response->assertSee('コメント(1)');
+        $response->assertSee('2');  // いいね数
+        $response->assertSee('1');  // コメント数
+        $response->assertSee('コメント(1)');   // コメント見出し 
         $response->assertSee('コメント内容');
-        $response->assertSee($user->profile->user_name);
+        $response->assertSee('storage/default.png');
+        $response->assertSee('テストユーザー');
+
     }
 
     /** @test */

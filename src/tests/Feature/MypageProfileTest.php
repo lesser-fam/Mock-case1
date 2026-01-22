@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Profile;
 
 class MypageProfileTest extends TestCase
 {
@@ -16,7 +17,8 @@ class MypageProfileTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $user->Profile->update([
+        Profile::factory()->create([
+            'user_id' => $user->id,
             'user_name' => '初期ユーザー名',
             'post_num' => '123-4567',
             'address' => '東京都新宿区',

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms/form.css') }}">
 @endsection
 
 @section('content')
@@ -42,7 +42,7 @@
                 </p>
             </div>
                     
-            <input class="btn" type="submit" value="更新する">
+            <input class="btn btn--primary" type="submit" value="更新する">
         </form>
     </div>
 @endsection

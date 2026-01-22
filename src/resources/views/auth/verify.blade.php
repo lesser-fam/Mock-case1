@@ -1,26 +1,33 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms/verify.css') }}">
 @endsection
 
 @section('content')
-    <p>
-        登録していただいたメールアドレスに認証メールを送付しました。
-        メール認証を完了してください。
-    </p>
+    <div class="verify">
+        <p class="verify__message">
+            登録していただいたメールアドレスに認証メールを送付しました。<br>
+            メール認証を完了してください。
+        </p>
 
-    @if (session('resent'))
-        <p>認証メールを再送信しました。</p>
-    @endif
+        <div class="verify__action">
+            <a class="verify__button" href="http://localhost:8025" target="_blank">
+                認証はこちらから
+            </a>
+        </div>
 
-    <a href="http://localhost:8025" target="_blank">
-        認証はこちらから
-    </a>
+        <form class="verify__resend-form" action="{{ route('verification.resend') }}" method="POST">
+            @csrf
+            <button class="verify__resend-link" type="submit">
+                認証メールを再送する
+            </button>
+        </form>
 
-    <form action="/email/verification-notification" method="POST">
-        @csrf
-        <button type="submit">認証メールを再送する</button>
-    </form>
-
+        @if (session('resent'))
+            <p class="verify__resend-message">
+                認証メールを再送信しました。
+            </p>
+        @endif
+    </div>
 @endsection

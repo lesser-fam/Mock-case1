@@ -1,30 +1,31 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/item_show.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/items/item_card.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/items/item_show.css') }}">
 @endsection
 
 @section('content')
     <div class="item-detail container--narrow">
-
-        <div class="item-detail__left">
+        <div class="item-detail__image">
             <img src="{{ $item->image_url }}" alt="{{ $item->name }}">
             
             @if ($item->purchase && $item->purchase->status === 'paid')
-                <span class= "item-group__sold">SOLD</span>
+                <span class="badge--sold">SOLD</span>
             @endif
         </div>
         
-        <div class="item-detail__right">
+        <div class="item-detail__content">
             <section class="item-summary">
-                <h1>{{ $item->name }}</h1>
-                <p class="item-brand">{{ $item->brand ?? '' }}</p>
-                <p class="item-price">¥{{ number_format($item->price) }} <span>(税込)</span></p>
+                <h1 class="item-summary__name">{{ $item->name }}</h1>
+                <p class="item-summary__brand">{{ $item->brand ?? '' }}</p>
+                <p class="item-summary__price">¥{{ number_format($item->price) }} <span>(税込)</span></p>
             </section>
 
             <section class="item-purchase">
                 <div class="item-action__group">
-                    <div class="item-action item-action__favorite">
+                    <div class="item-action item-action--favorite">
                         @auth
                             <form action="{{ route('items.favorite', $item->id) }}" method="POST">
                                 @csrf
@@ -44,7 +45,7 @@
                         <span>{{ $item->favorites->count() }}</span>
                     </div>
 
-                    <div class="item-action item-action__comment">
+                    <div class="item-action item-action--comment">
                         <a href="#comments">
                             <img src="/images/speech_bubble.png" alt="コメント">
                         </a>
@@ -53,16 +54,16 @@
                 </div>
 
                 @if ($item->purchase && $item->purchase->status === 'paid')
-                    <div class="btn btn-buy__sold">
+                    <div class="btn btn--primary btn--disabled">
                         売り切れました
                     </div>
                 @else
                     @auth
-                        <a href="{{ route('purchase.show', $item->id) }}" class="btn btn-buy">
+                        <a href="{{ route('purchase.show', $item->id) }}" class="btn btn--primary">
                             購入手続きへ
                         </a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-buy">
+                        <a href="{{ route('login') }}" class="btn btn--primary">
                             購入手続きへ
                         </a>
                     @endauth
@@ -90,18 +91,18 @@
                 </div>
             </section>
 
-            <section class="item-comments">
-                <h2 class="comment">コメント({{ $item->comments->count() }})</h2>
+            <section class="item-comment">
+                <h2 class="item-comment__title">コメント({{ $item->comments->count() }})</h2>
                     @foreach ($item->comments as $comment)
-                    <div class="comment__group">
-                        <div class="comment__header">
-                            <img class="comment__image" src="{{ $comment->user->profile && $comment->user->profile->image ? asset('storage/' . $comment->user->profile->image) : asset('/image/default.png') }}" alt="画像">
-                            <span class="comment__name">
-                                {{ $comment->user->profile->user_name }}
+                    <div class="item-comment__group">
+                        <div class="item-comment__header">
+                            <img class="item-comment__image" src="{{ $comment->user->profile && $comment->user->profile->image ? asset('storage/' . $comment->user->profile->image) : asset('/images/default.png') }}" alt="画像">
+                            <span class="item-comment__name">
+                                {{ optional($comment->user->profile)->user_name ?? 'ゲスト' }}
                             </span>
                         </div>
 
-                        <div class="comment__body">
+                        <div class="item-comment__body">
                             {!! nl2br(e($comment->detail)) !!}
                         </div>
                     </div>
@@ -117,12 +118,12 @@
                                 @enderror
                             </p>
                                 
-                            <textarea name="detail">{{ old('detail') }}</textarea>
-                            <button class="btn btn-comment" type="submit">コメントを送信する</button>
+                            <textarea class="item-comment__textarea" name="detail">{{ old('detail') }}</textarea>
+                            <button class="btn--item btn--primary" type="submit">コメントを送信する</button>
                         </form>
                     @else
-                        <textarea name="detail"></textarea>
-                        <a href="{{ route('login') }}" class="btn btn-comment">
+                        <textarea class="item-comment__textarea" name="detail"></textarea>
+                        <a href="{{ route('login') }}" class="btn btn--primary">
                             コメントを送信する
                         </a>
                     @endauth

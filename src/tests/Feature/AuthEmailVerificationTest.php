@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Profile;
 
 class AuthEmailVerificationTest extends TestCase
 {
@@ -35,9 +36,25 @@ class AuthEmailVerificationTest extends TestCase
     }
 
     /** @test */
+    public function メール認証誘導画面で「認証はこちらから」ボタンを押すとメール認証サイトに遷移する()
+    {
+        $response = $this->get(route('verification.notice'));
+
+        $response->assertStatus(200);
+
+        $response->assertSee('認証はこちらから');
+
+        $response->assertSee('href="http://localhost:8025"', false);
+    }
+
+    /** @test */
     public function 認証リンクにアクセスするとメール認証が完了する()
     {
         $user = User::factory()->unverified()->create();
+
+        Profile::factory()->create([
+            'user_id' => $user->id
+        ]);
 
         $verificationUrl = \Illuminate\Support\Facades\URL::temporarySignedRoute(
             'verification.verify',
@@ -57,6 +74,7 @@ class AuthEmailVerificationTest extends TestCase
     public function メール認証完了後にプロフィール編集画面へ遷移する()
     {
         $user = User::factory()->unverified()->create();
+        Profile::factory()->create(['user_id' => $user->id]);
 
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',

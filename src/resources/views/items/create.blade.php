@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/item_sell.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/items/item_sell.css') }}">
 @endsection
 
 @section('content')
     <div class="container--form">
-
         <h1 class="form__heading">商品の出品</h1>
             
         <form class="form" action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
@@ -14,7 +14,6 @@
 
             <section class="item-sell__section">
                 <label class="item-sell__group-title">商品画像</label>
-
                 <div class="item-sell__image-area">
                     <p id="fileName" class="item-sell__file-name" hidden></p>
                     
@@ -50,7 +49,7 @@
                                 {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}
                                 hidden
                             >
-                            <label for="category_{{ $category->id }}" class="category-tag">
+                            <label for="category_{{ $category->id }}" class="item-sell__category-tag">
                                 {{ $category->name }}
                             </label>
                         @endforeach
@@ -131,7 +130,7 @@
                 </div>
             </section>
 
-            <input class="btn" type="submit" value="出品する">
+            <input class="btn btn--primary" type="submit" value="出品する">
         </form>
     </div>
 

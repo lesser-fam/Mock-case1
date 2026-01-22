@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/forms/form.css') }}">
 @endsection
 
 @section('content')
@@ -36,9 +36,7 @@
                 <input class="form__input" type="password" name="password" id="password">
                 <p class="form__error">
                     @error('password')
-                        @if ($message !== 'パスワードと一致しません')
-                            {{ $message }}
-                        @endif
+                        {{ $message }}
                     @enderror
                 </p>
             </div>
@@ -47,15 +45,13 @@
                 <label class="form__label" for="password_confirmation">確認用パスワード</label>
                 <input class="form__input" type="password" name="password_confirmation" id="password_confirmation">
                 <p class="form__error">
-                    @error('password')
-                        @if ($message === 'パスワードと一致しません')
-                            {{ $message }}
-                        @endif
+                    @error('password_confirmation')
+                        {{ $message }}
                     @enderror
                 </p>
             </div>
                     
-            <input class="btn" type="submit" value="登録する">
+            <input class="btn btn--primary" type="submit" value="登録する">
             <a class="form__link" href="{{ route('login') }}">ログインはこちら</a>
         </form>
     </div>        

@@ -1,0 +1,44 @@
+/* ===== マイページタブ =====*/
+.mypage-head {
+    padding: var(--space-l) 0 var(--space-xs);
+    width: 100%;
+}
+
+.mypage-head__inner {
+    display: flex;
+    gap: var(--space-l);
+    padding-inline: var(--space-l);
+}
+
+.mypage__tab {
+    font-size: var(--font-m);
+    color: #333;
+    text-decoration: none;
+}
+
+.mypage__tab.is-active {
+    font-weight: bold;
+    color: #ca0f0f;
+}
+
+.mypage-main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    border-top: 3px solid gray;
+}
+
+/* 768~850px */
+@media screen and (max-width: 850px) {
+    .mypage-head__inner {
+        padding-inline: var(--space-m);
+    }
+
+    .mypage-main {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-m);
+        padding: var(--space-m);
+
+    }
+}

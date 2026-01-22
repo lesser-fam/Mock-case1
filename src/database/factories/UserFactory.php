@@ -20,15 +20,6 @@ class UserFactory extends Factory
         ];
     }
 
-    public function configure()
-    {
-        return $this->afterCreating(function (User $user) {
-            Profile::factory()->create([
-                'user_id' => $user->id,
-            ]);
-        });
-    }
-
     /**
      * Indicate that the model's email address should be unverified.
      *

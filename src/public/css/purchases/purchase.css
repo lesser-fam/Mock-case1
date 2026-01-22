@@ -1,3 +1,4 @@
+/* ===== 商品購入 =====*/
 .purchase-form {
     display: flex;
     gap: var(--space-xl);
@@ -5,11 +6,11 @@
     margin: var(--space-xl);
 }
 
-.purchase-left {
+.purchase-detail {
     flex: 7;
 }
 
-.purchase-right {
+.purchase-subtotal {
     flex: 3;
     padding: var(--space-m);
 }
@@ -21,12 +22,12 @@
         margin: var(--space-m);
     }
 
-    .purchase-left,
-    .purchase-right {
+    .purchase-detail,
+    .purchase-subtotal {
         width: 100%;
     }
 
-    .purchase-right {
+    .purchase-subtotal {
         padding: var(--space-xl);
     
     }
@@ -47,7 +48,8 @@
     justify-content: space-between;
 }
 
-.purchase-section__body {
+.purchase-section--pay .purchase-section__body,
+.purchase-section--address .purchase-section__body {
     position: relative;
     margin-left: var(--space-s);
 }
@@ -85,7 +87,7 @@
     font-size: var(--font-xl);
 }
 
-#paymentMethodSelect {
+.purchase-pay__select {
     width: 250px;
     font-size: var(--font-s);
     padding: var(--space-xs);
@@ -94,8 +96,12 @@
     cursor: pointer;
 }
 
-#paymentMethodSelect option {
+.purchase-pay__select option {
     cursor: pointer;
+}
+
+.purchase-address__edit {
+    text-decoration: none;
 }
 
 .purchase-summary {
@@ -115,24 +121,4 @@
 .purchase-summary tr + tr th,
 .purchase-summary tr + tr td {
     border-top: 1px solid #666;
-}
-
-.form__error {
-    color: #ffffff;
-    margin-top: var(--space-xs);
-    background-color: #f05550;
-}
-
-.btn {
-    display: block;
-    text-align: center;
-    color: #ffffff;
-    width: 100%;
-    margin-top: var(--space-xl);
-    padding: var(--space-s) 0;
-    background-color: #f05550;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
 }

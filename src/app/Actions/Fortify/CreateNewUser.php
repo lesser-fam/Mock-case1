@@ -7,6 +7,8 @@ use App\Models\Profile;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -32,6 +34,12 @@ class CreateNewUser implements CreatesNewUsers
         $user->profile()->create([
             'user_name' => $input['user_name'],
         ]);
+
+        event(new Registered($user));
+
+        Auth::logout();
+
+        session(['verify_user_id' => $user->id]);
 
         return $user;
     }

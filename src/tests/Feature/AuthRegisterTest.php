@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
-
 class AuthRegisterTest extends TestCase
 {
     use RefreshDatabase;
@@ -79,12 +78,12 @@ class AuthRegisterTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors([
-            'password' => 'パスワードと一致しません'
+            'password_confirmation' => 'パスワードと一致しません'
         ]);
     }
 
     /** @test */
-    public function 正しい情報で登録するとメール認証誘導画面（プロフィール編集画面）に遷移()
+    public function 正しい情報で登録するとメール認証誘導画面に遷移()
     {
         $response = $this->post(route('register'), [
             'user_name' => 'テスト太郎',
