@@ -11,9 +11,9 @@
 3. `docker-compose up -d --build`
 
 **Laravel環境構築**
-1.`docker-compose exec php bash`
-2.`composer install`
-3.「.env.example」ファイルをコピーして「.env」ファイルを作成
+1. `docker-compose exec php bash`
+2. `composer install`
+3. 「.env.example」ファイルをコピーして「.env」ファイルを作成
 4. .envに以下の環境変数を追加
 ```text
 DB_CONNECTION=mysql
@@ -60,15 +60,26 @@ php artisan db:seed
 php artisan storage:link
 ```
 
+※ 初回起動時に権限エラーが発生する場合
+```bash
+docker-compose exec php bash
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
+```
+
 9. テスト実行
+※ テスト実行前に、テスト用データベースを作成してください。
+```bash
+docker-compose exec mysql mysql -u laravel_user -p
+CREATE DATABASE demo_test;
+```
+※ テスト実行時は'.env.testing'を使用し、すべて Feature Test として実装しています。
+
 ```bash
 php artisan test
 ```
 
 **実装済みテスト一覧**
-
-※ テスト実行時は'.env.testing'を使用し、すべて Feature Test として実装しています。
-
 ```text
 01 会員登録機能
     - AuthRegisterTest
