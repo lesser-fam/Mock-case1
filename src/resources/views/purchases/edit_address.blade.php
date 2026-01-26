@@ -6,12 +6,10 @@
 
 @section('content')
     <div class="container--form">
-
         <h1 class="form__heading">住所の変更</h1>
-            
         <form class="form" action="{{ route('purchase.address.update', $item->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+        @csrf
+        @method('PUT')
             <div class="form__group">
                 <label class="form__label" for="post_num">郵便番号</label>
                 <input class="form__input" type="text" name="post_num" id="post_num" value="{{ old('post_num', $profile->post_num ?? '') }}">
@@ -21,7 +19,6 @@
                     @enderror
                 </p>
             </div>
-    
             <div class="form__group">
                 <label class="form__label" for="address">住所</label>
                 <input class="form__input" type="text" name="address" id="address" value="{{ old('address', $profile->address ?? '') }}">
@@ -31,7 +28,6 @@
                     @enderror
                 </p>
             </div>
-            
             <div class="form__group">
                 <label class="form__label" for="building">建物名</label>
                 <input class="form__input" type="text" name="building" id="building" value="{{ old('building', $profile->building ?? '') }}">
@@ -40,8 +36,7 @@
                         {{ $message }}
                     @enderror
                 </p>
-            </div>
-                    
+            </div>                    
             <input class="btn btn--primary" type="submit" value="更新する">
         </form>
     </div>

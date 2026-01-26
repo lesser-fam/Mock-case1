@@ -16,33 +16,27 @@
                 {{ optional($profile)->user_name ?? '未設定' }}
             </p>
         </div>
-
         <a class="profile-action__edit-link" href="{{ route('mypage.profile.edit') }}">プロフィールを編集</a>
     </div>
-
     <div class="mypage-head container--narrow">
         <div class="mypage-head__inner">
             <a href="{{ route('mypage.index', ['page' => 'sell']) }}" class="mypage__tab {{ $page === 'sell' ? 'is-active' : '' }}">
             出品した商品
             </a>
-
             <a href="{{ route('mypage.index', ['page' => 'buy']) }}" class="mypage__tab {{ $page === 'buy' ? 'is-active' : '' }}">
             購入した商品
             </a>
         </div>
     </div>
-    
     <div class="mypage-main container">
         @foreach ($items as $item)
             <a class="item-card" href="{{ route('items.show', $item->id) }}">
                 <div class="item-card__image">
                     <img src="{{ $item->image_url }}" alt="{{ $item->name }}">
-
                     @if ($item->purchase && $item->purchase->status === 'paid')
                         <span class="badge--sold">SOLD</span>
                     @endif
                 </div>
-
                 <p class="item-card__name">{{ $item->name }}</p>
             </a>
         @endforeach

@@ -6,11 +6,9 @@
 
 @section('content')
     <div class="container--form">
-
         <h1 class="form__heading">ログイン</h1>
-            
         <form class="form" action="{{ route('login') }}" method="POST" novalidate>
-            @csrf
+        @csrf
             <div class="form__group">
                 <label class="form__label" for="email">メールアドレス</label>
                 <input class="form__input" type="email" name="email" id="email" value="{{ old('email') }}">
@@ -20,7 +18,6 @@
                     @enderror
                 </p>
             </div>
-
             <div class="form__group">
                 <label class="form__label" for="password">パスワード</label>
                 <input class="form__input" type="password" name="password" id="password">
@@ -30,7 +27,6 @@
                     @enderror
                 </p>
             </div>
-                    
             <input class="btn btn--primary" type="submit" value="ログインする">
             <a class="form__link" href="{{ route('register') }}">会員登録はこちら</a>
         </form>

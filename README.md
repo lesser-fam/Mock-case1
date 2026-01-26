@@ -6,25 +6,13 @@
 
 ## 環境構築
 **Dockerビルド**
-1.
-```bash
-git clone git@github.com:lesser-fam/Mock-case1.git
-```
+1. `git clone git@github.com:lesser-fam/Mock-case1.git`
 2. DockerDesktopを立ち上げる
-3. 
-```bash
-docker-compose up -d --build
-```
+3. `docker-compose up -d --build`
 
 **Laravel環境構築**
-1.
-```bash
-docker-compose exec php bash
-```
-2.
-```bash
-composer install
-```
+1. `docker-compose exec php bash`
+2. `composer install`
 3. 「.env.example」ファイルをコピーして「.env」ファイルを作成
 4. .envに以下の環境変数を追加
 ```text

@@ -10,20 +10,17 @@
             登録していただいたメールアドレスに認証メールを送付しました。<br>
             メール認証を完了してください。
         </p>
-
         <div class="verify__action">
             <a class="verify__button" href="http://localhost:8025" target="_blank">
                 認証はこちらから
             </a>
         </div>
-
         <form class="verify__resend-form" action="{{ route('verification.resend') }}" method="POST">
-            @csrf
+        @csrf
             <button class="verify__resend-link" type="submit">
                 認証メールを再送する
             </button>
         </form>
-
         @if (session('resent'))
             <p class="verify__resend-message">
                 認証メールを再送信しました。
