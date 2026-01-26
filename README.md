@@ -63,15 +63,16 @@ php artisan storage:link
 ※ 初回起動時に権限エラーが発生する場合
 ```bash
 docker-compose exec php bash
+# 以下、phpコンテナ内で実行
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 ```
 
 9. テスト実行
 
-※ テスト実行前に、テスト用データベースを作成してください。
+※ テスト実行前に、MySQLのrootユーザーでテスト用データベースを作成してください。
 ```bash
-docker-compose exec mysql mysql -u laravel_user -p
+docker-compose exec mysql mysql -u root -p
 ```
 ```sql
 CREATE DATABASE demo_test;
